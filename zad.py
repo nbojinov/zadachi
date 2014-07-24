@@ -3,7 +3,7 @@ length=-1
 myA=-1
 myB=-1
 myC=-1
-while length<0 or length>=100000:
+while length<0 or length>=1000000:
 	length=int(input("AY="))
 while myA<0 or myA>=100000:
 	myA=int(input("a="))
@@ -33,8 +33,7 @@ for item in arr:
 	if(item==0):
 		result+=1
 print result
-end=time.clock()
-print 'Run time is %4.2fs' % (end - start)
+print 'Run time is %4.2fs' % (time.clock() - start)
 
 with open('result.html', 'wb') as outfile:
 	print>>outfile,"""<html>
@@ -42,6 +41,27 @@ with open('result.html', 'wb') as outfile:
 <title>Result</title>
 </head>
 <body>
-with AY=%d a=%d b=%d c=%d Result is:%d
-</body>
-</html>""" % (length,myA,myB,myC,result)
+"""
+	bold=False
+	wasBold=False
+	if arr[0]:
+		bold=True
+	for i in range(0,len(arr)):
+		if arr[i]:
+			bold=True
+		else:
+			if(i>0 and arr[i-1]):
+				wasBold=True
+			bold=False
+		if bold or wasBold:
+			print>>outfile, "<text style='color:#ff0000;'>",i,"</text> ",
+			if wasBold:
+				wasBold=False
+		else:
+			print>>outfile, i," ",
+		
+	if bold or wasBold:
+		print>>outfile, "<text style='color:#ff0000;'>",len(arr),"</text> ",
+	else:
+		print>>outfile, len(arr)," ",
+	print>>outfile, "<hr></body></html>"
