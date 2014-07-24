@@ -16,23 +16,17 @@ start=time.clock()
 arr=[0]*length
 
 def change_arr(arg1,arg2):
-	maxArg=-1
-	minArg=-1
-	if(arg1>=arg2):
-		maxArg=arg1
-		minArg=arg2
-	else:
-		maxArg=arg2
-		minArg=arg1
+	maxArg=arg2
+	minArg=arg1
 	for i in range(minArg,maxArg):
 		arr[i]=1	
 
 ind=0
 while ind<length:
-	if((length-(ind+myC))%myB==0):
+	if((length-(ind+myC))%myB==0 and ind+myC<=length):
 		change_arr(ind,ind+myC)
-	if((length-(ind-myC))%myB==0):
-		change_arr(ind,ind-myC)
+	if((length-(ind-myC))%myB==0 and ind-myC>=0):
+		change_arr(ind-myC,ind)
 	ind+=myA
 result=0
 for item in arr:
